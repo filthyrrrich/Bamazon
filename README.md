@@ -11,7 +11,7 @@ An App that allows user to store items in a mySQL database and interact with tho
 User enters node bamazonCustomer.js in command line and is presented with a table of items they can purchase.
 Upon completing the transaction, the table is updated with current remaining inventory.
 #### bamazonManager.js
-User enters bamazonManager.js in command line and is presented with a menu with 4 options:
+User enters node bamazonManager.js in command line and is presented with a menu with 4 options:
 1. View Products for Sale
 2. View Low Inventory
 3. Add to Inventory

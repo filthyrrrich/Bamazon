@@ -1,6 +1,10 @@
 # Bamazon
 
 An App that allows user to store items in a mySQL database and interact with those items via node.js CLI.
+### Required npm's
+1. inquirer
+2. mysql
+3. cli-table
 
 ## How to Use:
 #### bamazonCustomer.js

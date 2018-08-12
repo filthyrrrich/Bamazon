@@ -1,6 +1,7 @@
 CREATE DATABASE bamazon;
 USE bamazon;
 DROP TABLE IF EXISTS products;
+
 CREATE TABLE products (
 item_id INTEGER NOT NULL auto_increment,
 product_name VARCHAR(200) NOT NULL,
@@ -19,8 +20,8 @@ VALUES ("Neir Automata", "Video Games", 39.95, 100),
 ("Pirates of the Caribbean 9: Jack Sparrow's Curse of the Infinite Rum Bottle", "Movies", 29.95, 200),
 ("110% Real 3ct Diamond Ring", "Jewelry", 12.95, 30000),
 ("Mr. T's Gold Chain Set", "Jewelry", 9999.95, 1),
-("Tesla Death Ray", "Weapon", 249999.95, 10),
-("*Used* Prison Shank", "Weapon", 19.95, 187);
+("Tesla Death Ray", "Weapons", 249999.95, 10),
+("*Used* Prison Shank", "Weapons", 19.95, 187);
 
 SELECT * FROM products;
 

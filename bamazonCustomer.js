@@ -16,7 +16,7 @@ connection.connect(function(err) {
 });
 
 // displays items in table
-var displayItems = function() {
+function displayItems() {
     var table = new Table({
         head: ['ID:', 'Product name:', 'Department Name:', 'Price:', "Stock:"],
         colWidths: [5, 80, 20, 12, 8]
@@ -25,25 +25,24 @@ var displayItems = function() {
     var query = "SELECT * FROM products";
     connection.query(query, function(err, res) {
         if (err) throw err;
-        var itemsList = res.length;
         for (var i = 0; i < res.length; i++) {
           table.push(
               [res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity]
           );
         }
         console.log(table.toString());
-        makePurchase(itemsList);
+        makePurchase(res.length);
     });
 }
 
 //confirms and updates mysql stock by subtracting order amount
-var confirmTransaction = function(stock, item, total) {
+function confirmTransaction(stock, item, total) {
     inquirer.prompt({
         name:"confirm",
         type: "confirm",
-        message: "\nYour purchase total come's to $" + total + ".\n\nAre you sure you want to complete this transaction?"
+        message: `\nYour purchase total comes to $${total}.\n\nAre you sure you want to complete this transaction?`
     }).then(function(answer) {
-        if(answer.confrim == true) {
+        if(answer.confirm) {
             var query = "UPDATE products SET stock_quantity = ? WHERE item_id = ?";
             connection.query(query, [stock, item], function(err, res){
             if (err) throw err;
@@ -58,7 +57,7 @@ var confirmTransaction = function(stock, item, total) {
 }
 
 //prompts user to make a purchase
-var makePurchase = function (items) {
+function makePurchase(items) {
     inquirer.prompt([{
         name: "buy",
         type: "input",

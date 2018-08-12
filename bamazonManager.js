@@ -47,6 +47,7 @@ function lowInv(items) {
         head: ['ID:', 'Product name:', 'Department Name:', 'Price:', "Stock:"],
         colWidths: [5, 80, 20, 12, 8]
     });
+
     connection.query(query, function(err,res){
         if (err) throw err;
         for (var i = 0; i < res.length; i++) {
@@ -56,7 +57,7 @@ function lowInv(items) {
         }
         console.log(table.toString());
         mainMenu(items);
-    })
+    });
 }
 
 //confirm adding to inv
@@ -65,13 +66,20 @@ function addInv(stock, item, units, name) {
         name:"confirm",
         type: "confirm",
         message: `Are you sure you want to add ${units} to '${name}' stock?`
-    }).then(function() {
-        var query = "UPDATE products SET stock_quantity = ? WHERE item_id = ?";
-        connection.query(query, [stock, item], function(err,res){
+    }).then(function(answer) {
+        if (answer.confirm){
+            var query = "UPDATE products SET stock_quantity = ? WHERE item_id = ?";
+            connection.query(query, [stock, item], function(err,res){
             displayItems();
         });
+        
+        } else {
+            console.log("\nTransaction Canceled!\n\nPlease try again.\n");
+            setTimeout(displayItems, 3000);
+        }
     });
 }
+
 //allows manager to add stock_quantities
 function addInvPrompt(items) {
     inquirer.prompt([{
@@ -89,7 +97,7 @@ function addInvPrompt(items) {
         name: "units",
         type: "input",
         message: "Enter the amount of units you would like to add",
-        validate: function(value){
+        validate: function(value) {
             if(isNaN(value) == false && value > 0){
                 return true;
             } else {
@@ -129,7 +137,6 @@ function addProduct() {
                 return false;
             }
         }
-        
     }, {
         name: "stock",
         type: "input",
@@ -146,10 +153,17 @@ function addProduct() {
         type: "confirm",
         message: "Are you sure you would like to add this product?"
     }]).then(function(answer) {
-        var query = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)";
-        connection.query(query, [answer.name, answer.department, answer.price, answer.stock], function(err,res){
-            displayItems();
-        });
+        if(answer.confirm) {
+            var query = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)";
+            connection.query(query, [answer.name, answer.department, answer.price, answer.stock], function(err,res){
+                displayItems();
+            });  
+              
+        } else {
+            console.log("\nTransaction Canceled!\n\nPlease try again.\n");
+            setTimeout(displayItems, 3000);
+        }
+        
     });
 }
 
@@ -165,7 +179,7 @@ function mainMenu(items) {
             "Add to Inventory",
             "Add New Product"
         ]
-    }).then(function(answer){
+    }).then(function(answer) {
         switch (answer.options) {
             case "View Products for Sale":
                 displayItems();

@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: "3306",
     user: "root",
-    password: "menikmati",
+    password: "",
     database: "bamazon"
 });
 
@@ -158,7 +158,7 @@ function addProduct() {
             connection.query(query, [answer.name, answer.department, answer.price, answer.stock], function(err,res){
                 displayItems();
             });  
-              
+
         } else {
             console.log("\nTransaction Canceled!\n\nPlease try again.\n");
             setTimeout(displayItems, 3000);

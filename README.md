@@ -7,6 +7,7 @@ An App that allows user to store items in a mySQL database and interact with tho
 3. cli-table
 
 ## How to Use:
+Fill in your own password in var connection.
 #### bamazonCustomer.js
 User enters node bamazonCustomer.js in command line and is presented with a table of items they can purchase.
 Upon completing the transaction, the table is updated with current remaining inventory.

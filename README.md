@@ -23,5 +23,3 @@ From here, the user can alter the inventory and add new items if they wish.
 This app is a good start for understanding and creating a database of items you wish to keep inventory of and maintain. With some additions, it can also track company expenses, sales and profits.
 
 [Bamazon Demo](https://youtu.be/Igt3z_AAl4c)
-x
-x
